@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="爬取网页的通用代码框架, magicjz">
+    <meta name="keywords" content="使用爬虫下载一张图片, magicjz">
     <meta name="description" content="念念不忘，必有回响">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>爬取网页的通用代码框架 | magicjz</title>
+    <title>使用爬虫下载一张图片 | magicjz</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -308,12 +308,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">爬取网页的通用代码框架</h1>
+                    <h1 class="description center-align post-title">使用爬虫下载一张图片</h1>
                 </div>
             </div>
         </div>
@@ -450,7 +450,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-14
+                    2020-04-17
                 </div>
                 
 
@@ -467,21 +467,27 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <pre><code>import requests
-def getHTMLText(url)
+import os
+def getPic(url):
     try:
-        r = requests.get(url, timeout=30)
-        r.raise_for_status()
-        r.encoding = r.apparent_encoding
-        return r.text
+        if not os.path.exists(root):
+            os.mkdir(root)
+        if not os.path.exists(path):
+            ua = {&apos;user-Agent&apos;:&apos;Mozilla/5.0&apos;,&apos;referer&apos;:&apos;https://www.mzitu.com&apos;}
+            r = requests.get(url,header=ua,timeout=30)
+            with open(path,&apos;wb&apos;)as f:
+                f.write(r.coontent)
+                f.close()
+                print(“文件保存成功”)
+        else:
+            print(&quot;文件已存在&quot;)
     except:
-        return &quot;产生异常&quot;
-
-if __name__==&quot;__main__&quot;:
-    url = &quot;https://ww.baidu.com&quot;
-    print(getHTMLText(url))</code></pre><blockquote>
-<p>timeout = 30 设置响应时间<br>r.raise_for_status() 判断是否抛出异常</p>
-</blockquote>
-
+        &quot;ERROR&quot;
+if __name__ == &quot;__main__&quot;:
+    url = &quot;https://i3.mmzztt.com/2020/03/29c01.jpg&quot;
+    root = &quot;E://pics//&quot;
+    path = root + url.split(&apos;/&apos;)[-1]
+    getPic()</code></pre>
             </div>
             <hr/>
 
@@ -506,7 +512,7 @@ if __name__==&quot;__main__&quot;:
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yoursite.com/2020/04/14/%E7%88%AC%E5%8F%96%E7%BD%91%E9%A1%B5%E7%9A%84%E9%80%9A%E7%94%A8%E4%BB%A3%E7%A0%81%E6%A1%86%E6%9E%B6/">http://yoursite.com/2020/04/14/%E7%88%AC%E5%8F%96%E7%BD%91%E9%A1%B5%E7%9A%84%E9%80%9A%E7%94%A8%E4%BB%A3%E7%A0%81%E6%A1%86%E6%9E%B6/</a>
+                    <a href="http://yoursite.com/2020/04/17/%E4%BD%BF%E7%94%A8%E7%88%AC%E8%99%AB%E4%B8%8B%E8%BD%BD%E4%B8%80%E5%BC%A0%E5%9B%BE%E7%89%87/">http://yoursite.com/2020/04/17/%E4%BD%BF%E7%94%A8%E7%88%AC%E8%99%AB%E4%B8%8B%E8%BD%BD%E4%B8%80%E5%BC%A0%E5%9B%BE%E7%89%87/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -709,9 +715,10 @@ if __name__==&quot;__main__&quot;:
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/04/17/%E4%BD%BF%E7%94%A8%E7%88%AC%E8%99%AB%E4%B8%8B%E8%BD%BD%E4%B8%80%E5%BC%A0%E5%9B%BE%E7%89%87/">
                     <div class="card-image">
@@ -735,9 +742,9 @@ def getPic(url):
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-17
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-17
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -746,6 +753,7 @@ def getPic(url):
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -756,34 +764,29 @@ def getPic(url):
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/12/markdown%E8%AF%AD%E6%B3%95%E5%B8%B8%E7%94%A8%E6%A0%87%E8%AE%B0/">
+                <a href="/2020/04/14/%E7%88%AC%E5%8F%96%E7%BD%91%E9%A1%B5%E7%9A%84%E9%80%9A%E7%94%A8%E4%BB%A3%E7%A0%81%E6%A1%86%E6%9E%B6/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="markdown语法常用标记">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="爬取网页的通用代码框架">
                         
-                        <span class="card-title">markdown语法常用标记</span>
+                        <span class="card-title">爬取网页的通用代码框架</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            一、标题
-在标题文字前加#来表示标题等级
-二、字体表示
-加粗 用**进行包裹
-斜体 用*进行包裹
-加粗斜体 用***进行包裹
-删除线 用~~进行包裹加粗斜体加粗斜体删除线
-
-三、引用
-在&gt;后添加引用文字，允许多重套用
-在这个世界上只有
+                            import requests
+def getHTMLText(url)
+    try:
+        r = requests.get(url, timeout=30)
+        r.raise_for_status()
+   
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-12
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-14
                             </span>
                         <span class="publish-author">
                             
