@@ -503,19 +503,20 @@ if __name__ ==&quot;__main__&quot;:
 <p>该代码尚存在问题，在进行批量下载时中间会报错<br>对链接的提取使用正则表达式效果更好</p>
 </blockquote>
 <h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><hr>
-<p>使用正则表达式对网址进行匹配解决了之前的问题<br>    import requests<br>    import os<br>    import re<br>    from bs4 import BeautifulSoup</p>
+<p>使用正则表达式对网址进行匹配简化关键词搜索，但是没有解决之前的报错问题<br>    import requests<br>    import os<br>    import re<br>    from bs4 import BeautifulSoup</p>
 <pre><code>def getPic(urlroot):
     try:
         if not os.path.exists(root):
             os.mkdir(root)
             ref = &quot;https://www.mzitu.com&quot;
+            nextpageroot = urlroot
+            ua = {&apos;user-agent&apos;:&apos;Mozilla/5.0&apos;,&apos;referer&apos;:ref}
             for i in range(1,72):
-                ua = {&apos;user-agent&apos;:&apos;Mozilla/5.0&apos;,&apos;referer&apos;:ref}
                 r = requests.get(urlroot,headers=ua)
                 demo = r.text
                 soup = BeautifulSoup(demo,&quot;html.parser&quot;)
-                nextpage = urlroot + &quot;/&quot; + str(int(i)+1)
-                cm = &apos;.jpg&apos;
+                nextpage = nextpageroot + &quot;/&quot; + str(i+1)
+                cm = &apos;[a-z][0-9]+.jpg&apos;
                 tag = soup.find_all(src=re.compile(cm))
                 url = tag[0].attrs[&apos;src&apos;]
                 path = root + url.split(&apos;/&apos;)[-1]
@@ -524,7 +525,6 @@ if __name__ ==&quot;__main__&quot;:
                     f.write(r.content)
                     f.close()
                     print(i)
-                ref = urlroot
                 urlroot = nextpage
         else:
             print(&quot;文件已存在&quot;)
@@ -534,7 +534,8 @@ if __name__ ==&quot;__main__&quot;:
 if __name__ ==&quot;__main__&quot;:
     urlroot = &quot;https://www.mzitu.com/226647&quot;
     root = &quot;E://pics//&quot;
-    getPic(urlroot)</code></pre>
+    getPic(urlroot)</code></pre><h2 id="问题解决了"><a href="#问题解决了" class="headerlink" title="问题解决了"></a>问题解决了</h2><p>可能是爬虫下载速度过快，被服务器识别，拒绝了访问。<br>可以在每次循环中加入time.sleep(0.6),解决这个问题。</p>
+
             </div>
             <hr/>
 
