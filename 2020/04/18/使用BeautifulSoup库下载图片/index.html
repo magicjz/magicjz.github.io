@@ -535,7 +535,56 @@ if __name__ ==&quot;__main__&quot;:
     urlroot = &quot;https://www.mzitu.com/226647&quot;
     root = &quot;E://pics//&quot;
     getPic(urlroot)</code></pre><h2 id="问题解决了"><a href="#问题解决了" class="headerlink" title="问题解决了"></a>问题解决了</h2><p>可能是爬虫下载速度过快，被服务器识别，拒绝了访问。<br>可以在每次循环中加入time.sleep(0.6),解决这个问题。</p>
+<h2 id="更新-1"><a href="#更新-1" class="headerlink" title="更新"></a>更新</h2><hr>
+<h2 id="批量下载多组图片"><a href="#批量下载多组图片" class="headerlink" title="批量下载多组图片"></a>批量下载多组图片</h2><pre><code>import requests
+import os
+import re
+import time
+from bs4 import BeautifulSoup
 
+def getHref(urlroot):
+    ua = {&apos;user-agent&apos;:&apos;Mozilla/5.0&apos;,&apos;referer&apos;:&apos;https://www.mzitu.com&apos;}
+    r = requests.get(urlroot,headers=ua)
+    demo = r.text
+    soup = BeautifulSoup(demo,&quot;html.parser&quot;)
+    cm = &apos;https://www.mzitu.com/+\w{6}&apos;
+    pri_list = soup.find_all(id=&quot;pins&quot;)
+    href_list = pri_list[0].find_all(href=re.compile(cm))
+    return href_list
+
+def getPic(href):
+    try:
+        os.mkdir(root)
+        nextpageroot = href
+        ua = {&apos;user-agent&apos;:&apos;Mozilla/5.0&apos;,&apos;referer&apos;:&apos;https://www.mzitu.com&apos;}
+        for i in range(1,33):
+            r = requests.get(href,headers=ua)
+            demo = r.text
+            soup = BeautifulSoup(demo,&quot;html.parser&quot;)
+            nextpage = nextpageroot + &quot;/&quot; + str(i+1)
+            cm = &apos;[a-z][0-9]+.jpg&apos;
+            tag = soup.find_all(src=re.compile(cm))
+            url = tag[0].attrs[&apos;src&apos;]
+            path = root + url.split(&apos;/&apos;)[-1]
+            r = requests.get(url,headers=ua)
+            with open(path,&apos;wb&apos;)as f:
+                f.write(r.content)
+                f.close()
+                print(i)
+            href = nextpage
+            time.sleep(0.6)
+    except:
+        print(&quot;error&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    urlroot = &quot;https://www.mzitu.com&quot;
+    href_list = getHref(urlroot)
+    pri_root = &quot;E:\\爬下来的图\\&quot;
+    os.mkdir(pri_root)
+    for i in range(1,len(href_list)+1):
+        href = href_list[i].attrs[&apos;href&apos;]
+        root = pri_root + href_list[i].text + &apos;\\&apos;
+        getPic(href)</code></pre>
             </div>
             <hr/>
 
